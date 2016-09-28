@@ -21,12 +21,14 @@ public class SwipeTargetCamera : MonoBehaviour {
     private float m_lastTouchPosY;
     private float m_elevationSpeed = 0.0f;
     private float m_azimuthSpeed = 0.0f;
-    
+    private bool m_isSwiping = false;
+
     void Awake()
     {
         m_xPixelScale = Screen.width / 1280.0f;
         m_yPixelScale = Screen.height / 720.0f;
         m_lastTouchDown = false;
+        m_isSwiping = false;
     }
 
     void Start ()
@@ -63,13 +65,23 @@ public class SwipeTargetCamera : MonoBehaviour {
 
 #endif
 
-        if (touchDown == true && m_lastTouchDown==true)
+        if (touchPosY < 360.0f && touchDown == true)
+        {
+            m_isSwiping = true;
+        }
+
+        if (touchDown == false)
+        {
+            m_isSwiping = false;
+        }
+
+        if (m_isSwiping == true && m_lastTouchDown==true)
         {
             m_azimuthSpeed = (touchPosX - m_lastTouchPosX) * m_sensitivity;
             m_elevationSpeed = -(touchPosY - m_lastTouchPosY) * m_sensitivity;           
         }
 
-        if ( touchDown==false && m_lastTouchDown==true )
+        if (m_isSwiping == false && m_lastTouchDown==true )
         {
             m_elevationSpeed = 0.0f;
         }
