@@ -40,19 +40,9 @@ public class CarryController : MonoBehaviour {
 
 #endif
 
-        if ( screenPoint.y > 360.0f && touchDown==true )
-        {
-            m_isCarrying = true;
-        }
-
-        if ( touchDown==false )
-        {
-            m_isCarrying = false;
-        }
-
         Plane intesectionPlane = new Plane(Camera.main.transform.forward, new Vector3(0.0f, 0.0f, 0.0f));
 
-        if (m_isCarrying==true)
+        if (touchDown == true)
         {    
             Ray ray = Camera.main.ScreenPointToRay(screenPoint);
 
@@ -68,7 +58,7 @@ public class CarryController : MonoBehaviour {
 
         if (rigigBody!=null)
         {
-            rigigBody.isKinematic = m_isCarrying;
+            rigigBody.isKinematic = touchDown;
         }
     }
 }
