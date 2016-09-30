@@ -11,7 +11,7 @@ public class SwipeTargetCamera : MonoBehaviour {
     [SerializeField] private float m_swipeDecay = 0.9f;
     [SerializeField] private float m_minElevation = -45.0f;
     [SerializeField] private float m_maxElevation = 45.0f;    
-    [SerializeField] private Vector3 m_targetOffset;
+    [SerializeField] private Vector3 m_targetOffset = new Vector3(0.0f, 0.0f, 0.0f );
     [SerializeField] protected Transform m_targetTransform;
 
     private float m_xPixelScale =1.0f;
@@ -21,7 +21,7 @@ public class SwipeTargetCamera : MonoBehaviour {
     private float m_lastTouchPosY;
     private float m_elevationSpeed = 0.0f;
     private float m_azimuthSpeed = 0.0f;
-    
+   
     void Awake()
     {
         m_xPixelScale = Screen.width / 1280.0f;
@@ -69,7 +69,7 @@ public class SwipeTargetCamera : MonoBehaviour {
             m_elevationSpeed = -(touchPosY - m_lastTouchPosY) * m_sensitivity;           
         }
 
-        if ( touchDown==false && m_lastTouchDown==true )
+        if (touchDown == false && m_lastTouchDown==true )
         {
             m_elevationSpeed = 0.0f;
         }
